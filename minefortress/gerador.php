@@ -1,55 +1,102 @@
 <?php
+    include('connection.php');
+    $chunk = 1;
 
-     include('connection.php');
+    $sql = "SELECT * FROM chunk";
+    $result = mysqli_query($conn,$sql) or die("Error returning data");
+    while ($register = mysqli_fetch_array($result)){
+      $chunksit = $register['chunksit'];
 
-     //$tilenum = (rand(1,2));
+      if($chunksit == 'ative'){
 
-     //if ($tilenum == 1){
-     //     $tilename = 'grass';
-     //}
-     //if($tilenum == 2){
-     //     $tilename = 'desert';
-     //}
 
-     //$sql = "INSERT INTO tile (tilename, tilenum)
-     //VALUES ('$tilename', '$tilenum')";
- 
-     //if (mysqli_query($conn, $sql)) {
-         //echo "New record created successfully";
-     //} else {
-         //echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-     //}
+      ///GERA O TILE A.A
+      $tileaa = mt_rand(1, 100);
+      if ($tileaa <= 50){
+          $tileaa = 1;
+      }
+      if(($tileaa > 50) && ($tileaa <= 75)){
+          $tileaa = 2;
+      }
+      if(($tileaa > 75) && ($tileaa <= 90)){
+          $tileaa = 3;
+      }
+      if(($tileaa > 90) && ($tileaa <= 100)){
+          $tileaa = 4;
+      }
 
-     $chunk = 1;
+      ///GERA O TILE A.B
+      $tileab = mt_rand(1, 100);
+      if ($tileab <= 50){
+        $tileab = $tileaa;
+      }
+      if(($tileab > 50) && ($tileab <= 75)){
+        $tileab = 2;
+      }
+      if(($tileab > 75) && ($tileab <= 90)){
+        $tileab = 3;
+      }
+      if(($tileab > 90) && ($tileab <= 100)){
+        $tileab = 4;
+      }
 
-     $sql = "SELECT * FROM chunk";
-     $result = mysqli_query($conn,$sql) or die("Error returning data");
-     while ($register = mysqli_fetch_array($result)){
-     $chunksit = $register['chunksit'];
+      ///GERA O TILE A.C
+      $tileac = mt_rand(1, 100);
+      if ($tileac <= 50){
+        $tileac = $tileab;
+      }
+      if(($tileac > 50) && ($tileac <= 75)){
+        $tileac = 2;
+      }
+      if(($tileac > 75) && ($tileac <= 90)){
+        $tileac = 3;
+      }
+      if(($tileac > 90) && ($tileac <= 100)){
+        $tileac = 4;
+      }
 
-     if($chunksit == 'inative'){
-          $tile11 = (rand(1,2));
-          $tile12 = (rand(1,2));
-          $tile13 = (rand(1,2));
-          $tile14 = (rand(1,2));
-          $tile15 = (rand(1,2));
+      ///GERA O TILE A.D
+      $tilead = mt_rand(1, 100);
+      if ($tilead <= 50){
+        $tilead = $tileac;
+      }
+      if(($tilead > 50) && ($tilead <= 75)){
+        $tilead = 2;
+      }
+      if(($tilead > 75) && ($tilead <= 90)){
+        $tilead = 3;
+      }
+      if(($tilead > 90) && ($tilead <= 100)){
+        $tilead = 4;
+      }
 
-          echo $tile11?><br>
-     <?php echo $tile12?><br>
-     <?php echo $tile13?> <br>
-     <?php echo $tile14?> <br>
-     <?php echo $tile15?> <br> <?php
 
-          $chunksitnew = 'ative';
+      ///ENVIA OS TILES PARA O DATABASE
+      $sql = "INSERT INTO tile (tilenum)
+      VALUES ('$tileaa')";
+     
+      if (mysqli_query($conn, $sql)) {
+      } else {
+          //echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
+      $sql = "INSERT INTO tile (tilenum)
+      VALUES ('$tileab')";
+     
+      if (mysqli_query($conn, $sql)) {
+      } else {
+          //echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
+      $sql = "INSERT INTO tile (tilenum)
+      VALUES ('$tileac')";
+     
+      if (mysqli_query($conn, $sql)) {
+      } else {
+          //echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+      }
 
-          $sql = "UPDATE chunk SET chunksit = '{$chunksitnew}'";
+        $chunksitnew = 'ative';
 
-          if ($conn->query($sql) === TRUE) {
-          //echo "Record updated successfully";
-          } else {
-          //echo "Error updating record: " . $conn->error;
-          }
+        $sql = "UPDATE chunk SET chunksit = '{$chunksitnew}'";
      }
-
-     }
+    }
 ?>
